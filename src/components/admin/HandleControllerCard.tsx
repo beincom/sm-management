@@ -34,7 +34,7 @@ export default function HandleControllerCard() {
       client: {
         wallet: walletClient,
         public: publicClient,
-      },
+      } as any,
     });
     return contract;
   }, [walletClient]);
@@ -46,11 +46,17 @@ export default function HandleControllerCard() {
 
     const [marketplace, verifier, owner, forwarder, collector, auctionConfig] =
       await Promise.all([
+        // @ts-ignore
         contract.read.marketplace(),
+        // @ts-ignore
         contract.read.verifier(),
+        // @ts-ignore
         contract.read.owner(),
+        // @ts-ignore
         contract.read.forwarder(),
+        // @ts-ignore
         contract.read.collector(),
+        // @ts-ignore
         contract.read.auctionConfig(),
       ]);
 
@@ -82,6 +88,7 @@ export default function HandleControllerCard() {
         // Handle notification
         return;
       }
+      // @ts-ignore
       const tx = await contract.write.transferOwnership([owner]);
 
       // Handle success
@@ -105,6 +112,7 @@ export default function HandleControllerCard() {
         // Handle notification
         return;
       }
+      // @ts-ignore
       const tx = await contract.write.setCollector([collector]);
 
       // Handle success
@@ -129,6 +137,7 @@ export default function HandleControllerCard() {
         // Handle notification
         return;
       }
+      // @ts-ignore
       const tx = await contract.write.setAuctionMarketplaceConfig([
         [
           auctionConfig?.buyoutBidAmount,
@@ -159,6 +168,7 @@ export default function HandleControllerCard() {
         // Handle notification
         return;
       }
+      // @ts-ignore
       const tx = await contract.write.setMarketplace([marketplace]);
 
       // Handle success
@@ -183,6 +193,7 @@ export default function HandleControllerCard() {
         // Handle notification
         return;
       }
+      // @ts-ignore
       const tx = await contract.write.setForwarder([forwarder]);
 
       // Handle success
@@ -207,6 +218,7 @@ export default function HandleControllerCard() {
         // Handle notification
         return;
       }
+      // @ts-ignore
       const tx = await contract.write.setVerifier([verifier]);
 
       // Handle success

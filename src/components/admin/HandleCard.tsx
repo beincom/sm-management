@@ -29,7 +29,7 @@ export default function HandleCard() {
       client: {
         wallet: walletClient,
         public: publicClient,
-      },
+      } as any,
     });
     return contract;
   }, [walletClient, handleSelected]);
@@ -41,10 +41,15 @@ export default function HandleCard() {
     if(!handleSelected) return;
 
     const [name, symbol, operator, controller, handleTokenURI] = await Promise.all([
+      // @ts-ignore
       contract.read.name(),
+      // @ts-ignore
       contract.read.symbol(),
+      // @ts-ignore
       contract.read.OPERATOR(),
+      // @ts-ignore
       contract.read.CONTROLLER(),
+      // @ts-ignore
       contract.read.getHandleTokenURIContract(),
     ]);
 
@@ -70,6 +75,7 @@ export default function HandleCard() {
         // Handle notification
         return;
       }
+      // @ts-ignore
       const tx = await contract.write.setOperator([operator]);
 
       // Handle success
@@ -93,6 +99,7 @@ export default function HandleCard() {
         // Handle notification
         return;
       }
+      // @ts-ignore
       const tx = await contract.write.setController([controller]);
 
       // Handle success
@@ -116,6 +123,7 @@ export default function HandleCard() {
         // Handle notification
         return;
       }
+      // @ts-ignore
       const tx = await contract.write.setHandleTokenURIContract([handleTokenURI]);
 
       // Handle success
@@ -137,7 +145,7 @@ export default function HandleCard() {
     <div className="card-admin">
       <a href="#">
         <h5 className="card-title">Handle Config</h5>
-        
+
       </a>
       <div className="mb-5">
         <label className="form-label">Dropdown Address</label>
